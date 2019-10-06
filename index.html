@@ -1,0 +1,209 @@
+<html lang="pt-br">
+<head>
+	<meta charset="utf-8"/>
+	<meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport">
+	<title>Exemplo de ganttt</title>
+	<link href="easy-gantt/easy-gantt.css" rel="stylesheet"/>
+</head>
+<body style="margin: 10px; background-color: #F0E68C">
+<div  id="table-gantt1"></div>
+<div  id="table-gantt2"></div>
+<div  id="table-gantt3"></div>
+</body>
+<script src="easy-gantt/dependency/jquery-3.3.1.min.js"></script>
+<script src="easy-gantt/dependency/momentjs/moment-with-locales.js"></script>
+<script src="easy-gantt/easy-gantt.js"></script>
+<script>
+
+	var tasks1 = [
+                    {
+                        id: 10,
+                        name: 'Tarefa 1',
+                        date_start: '2019-05-09',
+                        date_end: '2019-06-10',
+                        color: '#ADFF2F',
+                    },
+                    {
+                        id: 11,
+                        name: 'Tarefa 2',
+                        date_start: '2019-06-15',
+                        date_end: '2019-06-20',
+                        color: '#ADD8E6',
+                    },
+                    {
+                        id: 12,
+                        name: 'Tarefa 3',
+                        date_start: '2019-07-05',
+                        date_end: '2019-07-15',
+                        color: '#FFDAB9',
+                    },
+                    {
+                        id: 13,
+                        name: 'Tarefa 4',
+                        date_start: '2019-07-16',
+                        date_end: '2019-07-18',
+                        color: '#BC8F8F',
+                    },
+                    {
+                        id: 14,
+                        name: 'Tarefa 5',
+                        date_start: '2019-07-20',
+                        date_end: '2019-07-23',
+                        color: '#9932CC'
+                    },
+                    {
+                        id: 15,
+                        name: 'Tarefa 6',
+                        date_start: '2019-07-25',
+                        date_end: '2019-07-28',
+                        color: '#808000'
+                    }
+                ];
+
+	var tasks2 = [
+                    {
+                        id: 10,
+                        title: 'Projeto A',
+                        name: 'Tarefa 1',
+                        date_start: '2019-05-09',
+                        date_end: '2019-06-10',
+                        color: '#ADFF2F',
+                        dep: '16,17,18'
+                    },
+                    {
+                        id: 11,
+                        title: 'Projeto B',
+                        name: 'Tarefa 2',
+                        date_start: '2019-06-15',
+                        date_end: '2019-06-20',
+                        color: '#ADD8E6',
+                        dep: '19'
+                    },
+                    {
+                        id: 12,
+                        title: 'Projeto C',
+                        name: 'Tarefa 3',
+                        date_start: '2019-07-05',
+                        date_end: '2019-07-15',
+                        color: '#FFDAB9',
+                    },
+                    {
+                        id: 13,
+                        title: 'Projeto D',
+                        name: 'Tarefa 4',
+                        date_start: '2019-07-16',
+                        date_end: '2019-07-18',
+                        color: '#BC8F8F',
+                        dep: '20,24'
+                    },
+                    {
+                        id: 14,
+                        title: 'Projeto E',
+                        name: 'Tarefa 5',
+                        date_start: '2019-07-20',
+                        date_end: '2019-07-23',
+                        color: '#9932CC'
+                    },
+                    {
+                        id: 15,
+                        title: 'Projeto F',
+                        name: 'Tarefa 6',
+                        date_start: '2019-07-25',
+                        date_end: '2019-07-28',
+                        color: '#808000'
+                    },
+                    {
+                        id: 16,
+                        title: 'Projeto A',
+                        name: 'Tarefa dp1',
+                        date_start: '2019-06-12',
+                        date_end: '2019-06-20',
+                        color: '#808000'
+                    },
+                    {
+                        id: 17,
+                        title: 'Projeto A',
+                        name: 'Tarefa dp2',
+                        date_start: '2019-06-21',
+                        date_end: '2019-06-25',
+                        color: '#9932CC'
+                    },
+                    {
+                        id: 18,
+                        title: 'Projeto A',
+                        name: 'Tarefa dp3',
+                        date_start: '2019-06-28',
+                        date_end: '2019-07-03',
+                        color: '#808000'
+                    },
+                    {
+                        id: 19,
+                        title: 'Projeto B',
+                        name: 'Tarefa dp3',
+                        date_start: '2019-06-22',
+                        date_end: '2019-06-26',
+                        color: '#808000'
+                    }
+                ];
+				
+	var tasks3 = [
+                    {
+                        id: 10,
+                        name: 'Tarefa 1',
+                        date_start: '2019-05-09',
+                        date_end: '2019-05-13',
+                        color: '#ADFF2F',
+                    },
+                    {
+                        id: 11,
+                        name: 'Tarefa 2',
+                        date_start: '2019-05-15',
+                        date_end: '2019-05-20',
+                        color: '#ADD8E6',
+                    },
+				];
+	
+				
+	$('#table-gantt1').gantt({
+        dtStart: '2019-05-05', // Data início do calendário
+        dtEnd: '2019-09-05', // Data fim do calendário
+        //width: 500, // Largura fixa (O padrão é responsível)
+        height: 100, // Alterar altura mínixa fixa
+        //labelTask: true, // Exibe nome das tarefas em cada bloco
+        data: tasks1, // Dados das atividades no formato Json
+        //locale: 'pt-BR', // Define o idioma do gantt
+		//widthCorrectionFirstCol: 205, // (Padrão 205px) Correção de largura da primeira coluna vazia para que a primeira coluna não fique deslizada para esquerda
+        click: function(taskId, taskName, taskCountDays){ // Retorna 3 parâmetro: Id, nome e quantidade de dias da atividade
+            console.log('aqui', taskId, taskName, taskCountDays);
+        }
+    });
+
+    $('#table-gantt2').gantt({
+        dtStart: '2019-05-05', // Data início do calendário
+        dtEnd: '2019-09-05', // Data fim do calendário
+        //width: 500, // Largura fixa (O padrão é responsível)
+        //height: 100, // Alterar altura mínixa fixa
+        labelTask: true, // Exibe nome das tarefas em cada bloco
+        data: tasks2, // Dados das atividades no formato Json
+        //locale: 'pt-BR', // Define o idioma do gantt
+		//widthCorrectionFirstCol: 205, // (Padrão 205px) Correção de largura da primeira coluna vazia para que a primeira coluna não fique deslizada para esquerda
+        click: function(taskId, taskName, taskCountDays){ // Retorna 3 parâmetro: Id, nome e quantidade de dias da atividade
+            console.log('aqui', taskId, taskName, taskCountDays);
+        }
+    });
+	
+	$('#table-gantt3').gantt({
+        dtStart: '2019-05-01', // Data início do calendário
+        dtEnd: '2019-05-31', // Data fim do calendário
+        //width: 500, // Largura fixa (O padrão é responsível)
+        height: 100, // Alterar altura mínixa fixa
+        //labelTask: true, // Exibe nome das tarefas em cada bloco
+        data: tasks3, // Dados das atividades no formato Json
+        //locale: 'pt-BR', // Define o idioma do gantt
+		//widthCorrectionFirstCol: 205, // (Padrão 205px) Correção de largura da primeira coluna vazia para que a primeira coluna não fique deslizada para esquerda
+        click: function(taskId, taskName, taskCountDays){ // Retorna 3 parâmetro: Id, nome e quantidade de dias da atividade
+            console.log('aqui', taskId, taskName, taskCountDays);
+        }
+    });
+</script>
+</html>
