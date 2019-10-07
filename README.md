@@ -1,3 +1,6 @@
-# easy-gantt
+# Easy Gantt
+Easiest way to make your own Gantt Chart.
 
-O diagrama de Gantt mais fácil de se usar. Com JQuery e MomentJS
+ - [jQuery](https://jquery.com/)
+ - [Moment JS](https://momentjs.com/)
+
