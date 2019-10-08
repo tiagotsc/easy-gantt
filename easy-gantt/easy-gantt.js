@@ -14,6 +14,7 @@ $.fn.gantt = function (options) {
 	let unic = divGantt.attr('id')+'_'+moment().format('s'); // Cria estancia única para minupular tabela
 	let idThead = '#thead_'+unic;
 	let idTbody = '#tbody_'+unic;
+	let conflicts = '#conflicts_'+unic;
     //return this.each(function () {
         $(this).css({"margin-left": "auto", "margin-right": "auto", "width": "100%"});
         let table = `<table class="tb-gantt">
@@ -21,7 +22,8 @@ $.fn.gantt = function (options) {
                         </thead>
                         <tbody id="tbody_${unic}">
                         </tbody>
-                    </table>`;
+                    </table>
+					<div id="conflicts_${unic}"></div>`;
         $(this).html(table);
 
         // Largura default
@@ -92,6 +94,7 @@ $.fn.gantt = function (options) {
 
 
         // Distribui as atividades, caso exista
+		var resConflicts = '';
         $.each(tasks, function(index, task) {
             let d1 = moment(task.date_start, "YYYY-MM-DD");
             let d2 = moment(task.date_end, "YYYY-MM-DD");
@@ -120,6 +123,7 @@ $.fn.gantt = function (options) {
                                 let contentDep = loadDep(tasks, task.dep, i, classTd, currentDate, firstDay);
                                 i = contentDep.sequence;
                                 tasksTable += contentDep.content;
+								resConflicts += contentDep.conflicts;
                             }
                         }else{
                             tasksTable += `<td colspan="1" class="${classTd}" day_number="${dayNumber}"></td>`;
@@ -162,6 +166,7 @@ $.fn.gantt = function (options) {
                 $('.tooltip-gantt').remove();
             });
         });
+		$(conflicts).html(resConflicts);
 
         /**
          * Faz o carregamento de atividades dependentes caso tenha alguma
@@ -175,42 +180,48 @@ $.fn.gantt = function (options) {
         function loadDep(data, ids, sequence, classTd, currentDate, firstDay){
             var content = '';
             var newSequence = sequence;
+			var contentConflicts = '';
             $.each(ids.split(','), function(index, id) {
 
                 $.map(data, function(val, i){
                     // No mapeamento, se o id do json for igual ao id de alguma dependência e se a data dependência for maior que data corrente. Monta bloco
-                    if(val.id == id && moment(val.date_start, "YYYY-MM-DD").isAfter(moment(currentDate, 'DD/MM/YYYY'))){
-                        let d1S = moment(val.date_start, "YYYY-MM-DD");
-                        let d2S = moment(val.date_end, "YYYY-MM-DD");
-                        let taskNameS = (val.name)? val.name: '';
-                        let taskColorS = (val.color)? val.color: '#2E8B57';
-                        let daysCountS = d2S.diff(d1S, 'days') + 1;
-                        let countDays = d2S.diff(moment(currentDate, "DD/MM/YYYY"), 'days');
-                        let labelTS = (options.labelTask)? taskNameS: '';
+                    if(val.id == id){
+						if(moment(val.date_start, "YYYY-MM-DD").isAfter(moment(currentDate, 'DD/MM/YYYY'))){
+							let d1S = moment(val.date_start, "YYYY-MM-DD");
+							let d2S = moment(val.date_end, "YYYY-MM-DD");
+							let taskNameS = (val.name)? val.name: '';
+							let taskColorS = (val.color)? val.color: '#2E8B57';
+							let daysCountS = d2S.diff(d1S, 'days') + 1;
+							let countDays = d2S.diff(moment(currentDate, "DD/MM/YYYY"), 'days');
+							let labelTS = (options.labelTask)? taskNameS: '';
 
-                        // Continua sequência de dias a partir da sequencia corrente e data corrente
-                        for(var s = sequence; s <= (countDays+sequence); s++){
-                            let dayNumberS = moment(firstDay, "DD/MM/YYYY").add(s, "days").dayOfYear();
-                            if(d1S.dayOfYear() == dayNumberS){ // Se número do ano baterem em ambas as datas
-                                content += `<td class="${classTd} td-tasks text-center" task_id="${val.id}" task_name="${taskNameS}" task_days="${daysCountS}" colspan="${daysCountS}" day_number="${dayNumberS}">
-								<div class="div-task" style="background-color: ${taskColorS};">${labelTS}</div>
-								</td>`;
-                                s = s + daysCountS;
-                                newSequence = s;
+							// Continua sequência de dias a partir da sequencia corrente e data corrente
+							for(var s = sequence; s <= (countDays+sequence); s++){
+								let dayNumberS = moment(firstDay, "DD/MM/YYYY").add(s, "days").dayOfYear();
+								if(d1S.dayOfYear() == dayNumberS){ // Se número do ano baterem em ambas as datas
+									content += `<td class="${classTd} td-tasks text-center" task_id="${val.id}" task_name="${taskNameS}" task_days="${daysCountS}" colspan="${daysCountS}" day_number="${dayNumberS}">
+									<div class="div-task" style="background-color: ${taskColorS};">${labelTS}</div>
+									</td>`;
+									s = s + daysCountS;
+									newSequence = s;
 
-                            }else{
-                                content += `<td class="${classTd}" day_number="${dayNumberS}"></td>`;
-                            }
-                        }
-                        sequence = newSequence;
-                        currentDate = d2S;
+								}else{
+									content += `<td class="${classTd}" day_number="${dayNumberS}"></td>`;
+								}
+							}
+							sequence = newSequence;
+							currentDate = d2S;
+						}else{
+							contentConflicts = `<p>${val.name} (ID: ${val.id}) - Início: ${moment(val.date_start, "YYYY-MM-DD").format('DD/MM/YYYY')} Fim: ${moment(val.date_end, "YYYY-MM-DD").format('DD/MM/YYYY')} esta conflitando</p>`;
+						}
                     }
                 });
 
             });
             return {
                 sequence: newSequence,
-                content: content
+                content: content,
+				conflicts: contentConflicts
             };
         }
     //});
