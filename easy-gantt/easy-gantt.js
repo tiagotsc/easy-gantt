@@ -110,10 +110,11 @@ $.fn.gantt = function (options) {
                 for(let i = 0; i <= countDays; i++){
                     //let day = moment(firstDay, "DD/MM/YYYY").add(i, "days").format('DD');
                     let dayNumber = moment(firstDay, "DD/MM/YYYY").add(i, "days").dayOfYear(); // Incrementa o dia
+                    let year = moment(firstDay, "DD/MM/YYYY").add(i, "days").format('YYYY');
                     if(i == 0){ // Primera interação é o cabeçalho fixo lateral
                         tasksTable += `<td colspan="1" day_number="${dayNumber}"><div></div>${titleName}</td>`;
                     }else{
-                        if(d1.dayOfYear()+1 == dayNumber){ // Se número do ano baterem em ambas as datas
+                        if(d1.dayOfYear()+1 == dayNumber && d1.format('YYYY') == year){ // Se número do ano baterem em ambas as datas
                             tasksTable += `<td class="${classTd} td-tasks" task_id="${task.id}" task_name="${taskName}" task_days="${daysCount}" colspan="${daysCount}" day_number="${dayNumber}">
 											<div class="div-task" style="background-color: ${taskColor};">${labelT}</div>
 											</td>`;
@@ -197,8 +198,9 @@ $.fn.gantt = function (options) {
 
 							// Continua sequência de dias a partir da sequencia corrente e data corrente
 							for(var s = sequence; s <= (countDays+sequence); s++){
-								let dayNumberS = moment(firstDay, "DD/MM/YYYY").add(s, "days").dayOfYear();
-								if(d1S.dayOfYear() == dayNumberS){ // Se número do ano baterem em ambas as datas
+                                let dayNumberS = moment(firstDay, "DD/MM/YYYY").add(s, "days").dayOfYear();
+                                let yearS = moment(firstDay, "DD/MM/YYYY").add(s, "days").format('YYYY');
+								if(d1S.dayOfYear() == dayNumberS && d1S.format('YYYY') == yearS){ // Se número do ano baterem em ambas as datas
 									content += `<td class="${classTd} td-tasks text-center" task_id="${val.id}" task_name="${taskNameS}" task_days="${daysCountS}" colspan="${daysCountS}" day_number="${dayNumberS}">
 									<div class="div-task" style="background-color: ${taskColorS};">${labelTS}</div>
 									</td>`;
