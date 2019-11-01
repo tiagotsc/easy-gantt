@@ -167,12 +167,9 @@
 	$('#table-gantt1').gantt({
         dtStart: '2019-05-05', // Data início do calendário
         dtEnd: '2019-09-05', // Data fim do calendário
-        //width: 500, // Largura fixa (O padrão é responsível)
-        height: 100, // Alterar altura mínixa fixa
         //labelTask: true, // Exibe nome das tarefas em cada bloco
         data: tasks1, // Dados das atividades no formato Json
         //locale: 'pt-BR', // Define o idioma do gantt
-		//widthCorrectionFirstCol: 205, // (Padrão 205px) Correção de largura da primeira coluna vazia para que a primeira coluna não fique deslizada para esquerda
         click: function(taskId, taskName, taskCountDays){ // Retorna 3 parâmetro: Id, nome e quantidade de dias da atividade
             console.log('aqui', taskId, taskName, taskCountDays);
         }
@@ -181,12 +178,9 @@
     $('#table-gantt2').gantt({
         dtStart: '2019-05-05', // Data início do calendário
         dtEnd: '2019-09-05', // Data fim do calendário
-        //width: 500, // Largura fixa (O padrão é responsível)
-        //height: 100, // Alterar altura mínixa fixa
         labelTask: true, // Exibe nome das tarefas em cada bloco
         data: tasks2, // Dados das atividades no formato Json
         //locale: 'pt-BR', // Define o idioma do gantt
-		//widthCorrectionFirstCol: 205, // (Padrão 205px) Correção de largura da primeira coluna vazia para que a primeira coluna não fique deslizada para esquerda
         click: function(taskId, taskName, taskCountDays){ // Retorna 3 parâmetro: Id, nome e quantidade de dias da atividade
             console.log('aqui', taskId, taskName, taskCountDays);
         }
@@ -195,12 +189,9 @@
 	$('#table-gantt3').gantt({
         dtStart: '2019-05-01', // Data início do calendário
         dtEnd: '2019-05-31', // Data fim do calendário
-        //width: 500, // Largura fixa (O padrão é responsível)
-        height: 100, // Alterar altura mínixa fixa
         //labelTask: true, // Exibe nome das tarefas em cada bloco
         data: tasks3, // Dados das atividades no formato Json
         //locale: 'pt-BR', // Define o idioma do gantt
-		//widthCorrectionFirstCol: 205, // (Padrão 205px) Correção de largura da primeira coluna vazia para que a primeira coluna não fique deslizada para esquerda
         click: function(taskId, taskName, taskCountDays){ // Retorna 3 parâmetro: Id, nome e quantidade de dias da atividade
             console.log('aqui', taskId, taskName, taskCountDays);
         }
