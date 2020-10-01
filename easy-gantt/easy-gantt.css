@@ -1,28 +1,25 @@
 table.tb-gantt {
-  position: relative;
-  background-color: white;
-  overflow: hidden;
-  border-collapse: collapse;
-  margin-left:auto;
-  margin-right:auto;
-  font-size: 11px;
-  font-family: 'Open Sans',"Helvetica Neue",Helvetica,Arial,sans-serif;
+    position: relative;
+    background-color: white;
+    margin-left:auto;
+    margin-right:auto;
+    font-size: 11px;
+    font-family: 'Open Sans',"Helvetica Neue",Helvetica,Arial,sans-serif;
+    border-collapse: collapse;
+    display: block;
+    overflow: auto;
+    max-height: 450px;
   /* border-radius: .25rem; */
 }
 
-
-/*thead*/
-table.tb-gantt thead {
-  position: relative;
-  display: block; /*seperates the header from the body allowing it to be positioned*/
-  max-width: 1000px;
-  overflow: visible;
+table.tb-gantt thead th {
+    min-width: 20px;
+    height: 20px;
+    text-align: center;
 }
 
-table.tb-gantt thead th {
-  min-width: 20px;
-  height: 20px;
-  text-align: center;
+table.tb-gantt tbody .td-bg1 {
+    background: #f2f3f4;
 }
 
 table.tb-gantt thead .month-name-par {
@@ -35,100 +32,58 @@ table.tb-gantt thead .month-name-odd {
     color: black;
 }
 
+
 table.tb-gantt thead .days {
     background-color: #212529;
-    /* border-color: #32383e; */
     color: white;
+    margin: auto;
+    padding: 0px;
+    text-align: center;
+}
+
+table.tb-gantt thead .days > p{
+    margin: auto;
+    height: 100%;
+    width: 100%;
+    padding: 3px 0px 0px 0px;
     border-right: 1px solid dimgray;
-
-}
-
-table.tb-gantt thead th:nth-child(1) {/*first cell in the header*/
-  position: relative;
-  display: block; /*seperates the first cell in the header from the header*/
-  min-width: 200px;
-}
-
-
-
-table.tb-gantt thead th:nth-child(1n+1) {
-	margin-left: 6;
-}
-
-
-table.tb-gantt thead th:last-child {/*first cell in the header*/
-    border-right: none;
-}
-
-
-/*tbody*/
-table.tb-gantt tbody {
-  position: relative;
-  display: block; /*seperates the tbody from the header*/
-  max-height: 350px;
-  overflow-x: auto;
-  overflow-y: auto;
-  max-width: 1000px;
-  /* scrollbar-color: red yellow; */
-}
-
-table.tb-gantt tbody td {
-  min-width: 20px;
-  /*border: 1px solid white; */
-  height: 20px;
-}
-
-table.tb-gantt tbody .td-bg1 {
-    border-color: #e2e7eb;
-    border-top: 1px solid #dee2e6;
-	border-left: 1px solid #f2f3f4;
-	border-right: 1px solid #f2f3f4;
-    background: #f2f3f4;
-}
-
-table.tb-gantt tbody .td-bg2 {
-	border-left: 1px solid white;
-	border-right: 1px solid white;
 }
 
 table.tb-gantt tbody .td-tasks {
     text-align: center;
     color: black;
+    margin: 0px;
+    padding: 0px;
 }
 
-.div-task{
-	border-radius: .25rem;
-	 min-height: 13px;
+table.tb-gantt thead th:nth-child(1) {/*first cell in the header*/
+    min-width: 200px;
 }
 
-table.tb-gantt thead tr .bg-space-clear {
-  background-color: white;
-	width: 205px;
-	margin-left:0;
-  border-top: 1px solid white;
-  border-bottom: 1px solid white;
+table.tb-gantt tbody tr th:nth-child(1) {  /*the first cell in each tr*/
+    height: 20px;
+    min-width: 200px;
+    background-color: #ADD8E6;
+    margin:0px;
+    padding-top:3px;
+    padding-left:0px;
+    color: black;
 }
 
-table.tb-gantt tbody tr td:nth-child(1) {  /*the first cell in each tr*/
-  position: relative;
-  display: block; /*seperates the first column from the tbody*/
-  height: 20px;
-  min-width: 200px;
-  background-color: #ADD8E6;
-  border-bottom: 1px solid #1E90FF;
-  padding-left: 5px;
-  color: black;
+table.tb-gantt tbody tr th:nth-child(1) > p{
+    height: 100%;
+    width:100%;
+    margin:0px;
+    padding:0px;
+    text-align: left;
+    border-bottom: 1px solid #1E90FF;
 }
 
-table.tb-gantt tbody tr td:nth-child(1) div {
-  height: 4px;
-}
-
-table.tb-gantt tbody tr:last-child > td:first-child {
+table.tb-gantt tbody tr:last-child > th:first-child > p {
     border-bottom: none;
 }
 
-.tooltip-gantt{
+div.tooltip-gantt{
     width:auto;
     height:auto;
     color:white;
@@ -138,5 +93,23 @@ table.tb-gantt tbody tr:last-child > td:first-child {
     padding:10px 10px 10px 10px;
     line-height: 200%;
     border-radius: .25rem;
-    }
+}
 
+table.tb-gantt tbody .td-tasks > .div-task{
+	/* border-radius: .25rem; */
+    min-height: 13px;
+    margin: 0px;
+    padding: 0px;
+}
+
+table.tb-gantt tbody .td-tasks > .border-radius-full{
+    border-radius: .25rem;
+}
+
+table.tb-gantt tbody .td-tasks > .border-radius-left{
+    border-radius: .25rem 0 0 .25rem;
+}
+
+table.tb-gantt tbody .td-tasks > .border-radius-right{
+    border-radius: 0 .25rem .25rem 0;
+}
